@@ -2,4 +2,5 @@
     <string name="app_name">CS 125 Final Project</string>
     <string name="destroy_challen">Destroy Challen</string>
     <string name="reincarnate_challen">Reincarnate Challen</string>
+    <string name="background">background</string>
 </resources>

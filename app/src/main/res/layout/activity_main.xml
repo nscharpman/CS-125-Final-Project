@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/destroy"
@@ -30,6 +30,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/reincarnate_challen" />
+
+            <ImageView
+                android:id="@+id/background"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/background"
+                android:scaleType="center"
+                android:background="@drawable/ic_launcher_background"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[13]" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

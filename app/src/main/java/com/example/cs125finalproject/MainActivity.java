@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button destroyChallen = findViewById(R.id.destroy);
         Button reincarnate = findViewById(R.id.reincarnate);
+        ImageView background = findViewById(R.id.background);
     }
 }
