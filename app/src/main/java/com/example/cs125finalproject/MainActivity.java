@@ -2,9 +2,9 @@ package com.example.cs125finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +12,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button destroyChallen = findViewById(R.id.destroy);
-        Button reincarnate = findViewById(R.id.reincarnate);
-        ImageView background = findViewById(R.id.background);
+        Button playGame = findViewById(R.id.playGame);
+        Intent goToSecondActivity = new Intent(getApplicationContext(), SecondActivity.class);
+        playGame.setOnClickListener(onClick -> {
+            startActivity(goToSecondActivity);
+        });
     }
 }
