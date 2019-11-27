@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button playGame = findViewById(R.id.playGame);
-        Intent goToSecondActivity = new Intent(getApplicationContext(), SecondActivity.class);
+        Intent goToGameActivity = new Intent(getApplicationContext(), GameActivity.class);
         playGame.setOnClickListener(onClick -> {
-            startActivity(goToSecondActivity);
+            startActivity(goToGameActivity);
         });
     }
 }
