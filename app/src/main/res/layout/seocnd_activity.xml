@@ -23,13 +23,13 @@
                 android:id="@+id/actionOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Run like a bitch" />
+                android:text="@string/run_like_a_bitch" />
 
             <Button
                 android:id="@+id/actionTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Killl Stuff" />
+                android:text="@string/killl_stuff" />
 
             <TextView
                 android:id="@+id/firstEvent"
@@ -40,7 +40,7 @@
             <ImageView
                 android:id="@+id/background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="646dp"
                 android:background="@drawable/ic_launcher_background"
                 android:contentDescription="@string/background"
                 android:orientation="vertical"
