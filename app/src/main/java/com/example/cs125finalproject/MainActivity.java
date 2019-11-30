@@ -2,9 +2,10 @@ package com.example.cs125finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +13,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button destroyChallen = findViewById(R.id.destroy);
-        Button reincarnate = findViewById(R.id.reincarnate);
-        ImageView background = findViewById(R.id.background);
+        Button playGame = findViewById(R.id.playGame);
+        final Intent goToGameActivity = new Intent(getApplicationContext(), GameActivity.class);
+        playGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(final View view) {
+                startActivity(goToGameActivity);
+            }
+        });
+        finish();
     }
 }

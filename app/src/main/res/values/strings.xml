@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">CS 125 Final Project</string>
-    <string name="destroy_challen">Destroy Challen</string>
-    <string name="reincarnate_challen">Reincarnate Challen</string>
     <string name="background">background</string>
+    <string name="beginning_game_stuff">Begin Game</string>
+    <string name="play_game">Play Game</string>
+    <string name="run_like_a_bitch">Run like a bitch</string>
+    <string name="killl_stuff">Killl Stuff</string>
 </resources>
