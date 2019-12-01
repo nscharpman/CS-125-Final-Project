@@ -55,39 +55,38 @@ public class GameActivity extends AppCompatActivity {
         actionOne.setText("Kill with a sword");
         actionTwo.setText("Kill with a knife");
         actionOne.setOnClickListener(unused -> seventhEvent());
-        actionTwo.setOnClickListener(unused -> eigthEvent());
+        actionTwo.setOnClickListener(unused -> eighthEvent());
     }
 
     public void fourthEvent() {
-        text.setText("You have found shelter in an abandoned house. You hear a noise upstairs.");
-        actionOne.setText("Investigate upstairs.");
+        text.setText("You have found shelter in an abandoned house. You hear a noise upstairs");
+        actionOne.setText("Investigate upstairs");
         actionTwo.setText("Leave the house and keep searching for your next mission");
         actionOne.setOnClickListener(unused -> ninthEvent());
         actionTwo.setOnClickListener(unused -> tenthEvent());
     }
 
     public void fifthEvent() {
-        text.setText("That's disgusting. You die from poisoning.");
-
+        text.setText("That's disgusting. You die from poisoning");
     }
 
     public void sixthEvent() {
-
+        text.setText("The village is happy you are protecting them");
     }
 
     public void seventhEvent() {
-
+        text.setText("The beasts armor is too strong to kill with a sword. The beast killed you");
     }
 
-    public void eigthEvent() {
-
+    public void eighthEvent() {
+        text.setText("A knife... really? You tried to kill a beast with a knife? Yeah... you're dead");
     }
 
     public void ninthEvent() {
-
+        text.setText("The beast followed you and killed you upstairs");
     }
 
     public void tenthEvent() {
-
+        text.setText("The beast's companion was outside waiting. It killed you");
     }
 }
