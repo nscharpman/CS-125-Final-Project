@@ -32,7 +32,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void firstEvent() {
         // Begin another event or something like that
-        //Image view of person running away.
+        // Image view of person running away.
         text.setText("You ran like a bitch");
         actionOne.setText("Go back and kill the beast");
         actionTwo.setText("Keep running and find shelter");
@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void secondEvent() {
         // Begin an action event or fight or something like that
-        //Image of person standing with a sword.
+        // Image of person standing with a sword.
         text.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
@@ -89,4 +89,8 @@ public class GameActivity extends AppCompatActivity {
     public void tenthEvent() {
         text.setText("The beast's companion was outside waiting. It killed you");
     }
+
+    //maybe add an animation using library
+    //maybe add a riddle for the user to solve
+    //WebAPI to send random facts per answer from the user.
 }
