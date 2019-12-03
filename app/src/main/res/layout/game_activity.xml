@@ -29,7 +29,7 @@
                 android:id="@+id/actionTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/killl_stuff" />
+                android:text="@string/kill_stuff" />
 
             <TextView
                 android:id="@+id/text"
