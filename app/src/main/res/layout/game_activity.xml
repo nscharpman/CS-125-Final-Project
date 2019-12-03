@@ -23,19 +23,19 @@
                 android:id="@+id/actionOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/run_like_a_bitch" />
+                android:text="Run like a Bitch" />
 
             <Button
                 android:id="@+id/actionTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/killl_stuff" />
+                android:text="Killl Stuff" />
 
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/beginning_game_stuff" />
+                android:text="Introduction" />
 
             <ImageView
                 android:id="@+id/background"
