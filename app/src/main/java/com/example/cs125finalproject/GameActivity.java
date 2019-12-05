@@ -129,20 +129,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void eighthEvent() {
-        if (artifacts.get(1).equals("Healing Charm")) {
-            label.setText("You have killed the beast with the knife but have taken significant damage." +
-                    "Would you like to use your health charm");
-            actionOne.setText("Take healing charm");
-            actionTwo.setText("Don't take healing charm");
-            actionOne.setOnClickListener(unused -> artifacts.remove(1));
-            insult.setText("You have 0 artifacts");
-        } else {
-            label.setText("You have killed the beast with the knife but have taken significant damage." +
-                    "Would you like to move onto the next village or continue exploring");
-            actionOne.setText("Move onto next village");
-            actionTwo.setText("Continue exploring");
-
-        }
+        label.setText("");
     }
 
     public void ninthEvent() {
