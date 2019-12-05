@@ -1,12 +1,16 @@
 package com.example.cs125finalproject;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -14,6 +18,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.Map;
 import java.util.HashMap;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -85,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> eleventhEvent());
-        actionTwo.setOnClickListener(unused -> twelthEvent());
+        actionTwo.setOnClickListener(unused -> twelfthEvent());
     }
 
     public void sixthEvent() {
@@ -121,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
         label.setText("");
     }
 
-    public void twelthEvent() {
+    public void twelfthEvent() {
 
     }
 
@@ -155,13 +164,35 @@ public class GameActivity extends AppCompatActivity {
     // - figure out how to set the image
     // - also finding images (use API that gives images for the story)
     // - get the story down
+    public void triviaQuestions(String question) {
+        if (question.equals("Computer Questions T/F")) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "https://opentdb.com/api.php?amount=10&category=18&type=multiple&encode=base64";
+            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String stuff) {
+                    // Is it possible to decode this before proceeding??
+                    Gson gson = new Gson();
+                    JsonElement element = gson.toJsonTree(stuff);
+                    // Eventually call the fight scene method once the json object is acquired
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    insult.setText("Fuck");
+                }
+            });
+        } else if (question.equals("Computer Questions Multiple")) {
+            RequestQueue queueTwo = Volley.newRequestQueue(this);
+        }
+    }
 
     public void webAPICaller(int number) {
         if (number == 1) {
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="https://evilinsult.com/generate_insult.php?lang=en&type=json";
+            String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-                @Override
+                @Override // This needs to be a Json object request
                 public void onResponse(String response) {
                     insult.setText(response.substring(0, 500));
                 }
@@ -173,5 +204,14 @@ public class GameActivity extends AppCompatActivity {
             });
             queue.add(stringRequest);
         }
+    }
+
+    public void RiddlerFight(final JsonObject input) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
+                null, false);
+        RadioGroup presets = inflater.findViewById(R.id.answers);
+        JsonArray newInput = input.get("results").getAsJsonArray();
+
     }
 }
