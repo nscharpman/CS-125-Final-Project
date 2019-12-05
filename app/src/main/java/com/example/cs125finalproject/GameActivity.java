@@ -173,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
     public void triviaQuestions(String question) {
         if (question.equals("Computer Questions T/F")) {
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://opentdb.com/api.php?amount=20&category=18&type=multiple&encode=base64";
+            String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
             StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String stuff) {
@@ -182,7 +182,8 @@ public class GameActivity extends AppCompatActivity {
                     String decodedString = new String(decodedBytes);
                     Gson gson = new Gson();
                     JsonElement element = gson.toJsonTree(decodedString);
-                    // Eventually call the fight scene method once the json object is acquired
+                    JsonObject object = element.getAsJsonObject();
+                    RiddlerFight(object);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -203,7 +204,7 @@ public class GameActivity extends AppCompatActivity {
         JsonArray newInput = input.get("results").getAsJsonArray();
     }
 
-    public void webAPICaller() {
+    public void insultGenerator() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
