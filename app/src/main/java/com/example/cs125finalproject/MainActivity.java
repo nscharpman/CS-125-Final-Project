@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
         playGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
                 startActivity(goToGameActivity);
+                finish();
             }
         });
-        finish();
     }
 }

@@ -27,27 +27,44 @@ import com.google.gson.JsonObject;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
-    private ImageView view = findViewById(R.id.background);
+    private ImageView view;
     // We need to set the image view for each function that we define. Therefore need multiple picture options.
 
     /** Button for the first action a player could make */
-    private Button actionOne = findViewById(R.id.actionOne);
+    private Button actionOne;
 
     /** Button for the second action a player could make. */
-    private Button actionTwo = findViewById(R.id.actionTwo);
+    private Button actionTwo;
 
     /** Text containing the scenario for each specific event */
-    private TextView label = findViewById(R.id.text);
+    private TextView label;
 
-    private TextView insult = findViewById(R.id.insult);
+    private TextView insult;
 
-    private Map<Integer, String> artifact = new HashMap<>();
+    private Map<Integer, String> artifacts;
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
-        label.setText("Stuff and Things");
 
+        /** Background view to change at each event */
+        view = findViewById(R.id.background);
+        // We need to set the image view for each function that we define. Therefore need multiple picture options.
+
+        /** Button for the first action a player could make */
+        actionOne = findViewById(R.id.actionOne);
+
+        /** Button for the second action a player could make. */
+        actionTwo = findViewById(R.id.actionTwo);
+
+        /** Text containing the scenario for each specific event */
+        label = findViewById(R.id.text);
+
+        insult = findViewById(R.id.insult);
+
+        artifacts = new HashMap<>();
+
+        label.setText("Stuff and Things");
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
     }
@@ -74,8 +91,8 @@ public class GameActivity extends AppCompatActivity {
 
     public void thirdEvent() {
         label.setText("You went back for the beast. Kill him with either a sword or a knife");
-        actionOne.setText("Kill with a sword");
-        actionTwo.setText("Kill with a knife");
+        actionOne.setText("Attack with a sword");
+        actionTwo.setText("Attack with a knife");
         actionOne.setOnClickListener(unused -> seventhEvent());
         actionTwo.setOnClickListener(unused -> eighthEvent());
     }
@@ -89,7 +106,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fifthEvent() {
-        label.setText("That's disgusting. You can now move onto the next village or continue exploring");
+        label.setText("That's disgusting, but you have gained the healing charm from his blood. " +
+                "You can now move onto the next village or continue exploring");
+        artifacts.put(1, "Healing charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> eleventhEvent());
@@ -126,7 +145,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void eleventhEvent() {
-
+        label.setText("");
     }
 
     public void twelfthEvent() {
