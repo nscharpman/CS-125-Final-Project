@@ -164,12 +164,17 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    // Things to do
-    // - Fix the emulator
-    // - start the APIS
-    // - figure out how to set the image
-    // - also finding images (use API that gives images for the story)
-    // - get the story down
+    // Nic:
+    // - Work on Trivia API
+    // - Alert Dialog
+    // - EndGame Alert Dialog (Restart to first event (as positive button))
+    //
+    // Zakir:
+    // - Work on story
+    // - Add in map variable stuff
+    // - If person contains map variable, add third button.
+
+
     public void triviaQuestions(String question) {
         if (question.equals("Computer Questions T/F")) {
             RequestQueue queue = Volley.newRequestQueue(this);
