@@ -34,8 +34,7 @@
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/beginning_game_stuff" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/insult"
