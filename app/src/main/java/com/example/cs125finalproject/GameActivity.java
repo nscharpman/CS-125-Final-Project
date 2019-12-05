@@ -11,8 +11,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -113,11 +116,12 @@ public class GameActivity extends AppCompatActivity {
     // - figure out how to set the image
     // - also finding images (use API that gives images for the story)
     // - get the story down
+    
 
     public void webAPICaller(int number) {
         if (number == 1) {
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="https://evilinsult.com/generate_insult.php?lang=en&type=json";
+            String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
