@@ -37,10 +37,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/beginning_game_stuff" />
 
+            <TextView
+                android:id="@+id/insult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <ImageView
                 android:id="@+id/background"
                 android:layout_width="match_parent"
-                android:layout_height="646dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/ic_launcher_background"
                 android:contentDescription="@string/background"
                 android:orientation="vertical"
