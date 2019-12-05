@@ -18,7 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.util.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -47,17 +47,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-        /** Background view to change at each event */
         view = findViewById(R.id.background);
         // We need to set the image view for each function that we define. Therefore need multiple picture options.
 
-        /** Button for the first action a player could make */
         actionOne = findViewById(R.id.actionOne);
 
-        /** Button for the second action a player could make. */
         actionTwo = findViewById(R.id.actionTwo);
 
-        /** Text containing the scenario for each specific event */
         label = findViewById(R.id.text);
 
         insult = findViewById(R.id.insult);
@@ -167,6 +163,7 @@ public class GameActivity extends AppCompatActivity {
     public void sixteenthEvent() {
 
     }
+
     // Nic:
     // - Work on Trivia API
     // - Alert Dialog
@@ -178,19 +175,18 @@ public class GameActivity extends AppCompatActivity {
     // - If person contains map variable, add third button.
 
 
-
-
-
     public void triviaQuestions(String question) {
         if (question.equals("Computer Questions T/F")) {
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://opentdb.com/api.php?amount=10&category=18&type=multiple&encode=base64";
+            String url = "https://opentdb.com/api.php?amount=20&category=18&type=multiple&encode=base64";
             StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String stuff) {
                     // Is it possible to decode this before proceeding??
+                    byte[] decodedBytes = Base64.getDecoder().decode(stuff);
+                    String decodedString = new String(decodedBytes);
                     Gson gson = new Gson();
-                    JsonElement element = gson.toJsonTree(stuff);
+                    JsonElement element = gson.toJsonTree(decodedString);
                     // Eventually call the fight scene method once the json object is acquired
                 }
             }, new Response.ErrorListener() {
@@ -204,31 +200,28 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void webAPICaller(int number) {
-        if (number == 1) {
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
-            StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-                @Override // This needs to be a Json object request
-                public void onResponse(String response) {
-                    insult.setText(response.substring(0, 500));
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    insult.setText("Fuck");
-                }
-            });
-            queue.add(stringRequest);
-        }
-    }
-
     public void RiddlerFight(final JsonObject input) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
                 null, false);
         RadioGroup presets = inflater.findViewById(R.id.answers);
         JsonArray newInput = input.get("results").getAsJsonArray();
+    }
 
+    public void webAPICaller() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override // This needs to be a Json object request
+            public void onResponse(String response) {
+                insult.setText(response.substring(0, 500));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                insult.setText("Fuck");
+            }
+        });
+        queue.add(stringRequest);
     }
 }
