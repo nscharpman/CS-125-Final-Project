@@ -47,17 +47,13 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-        /** Background view to change at each event */
         view = findViewById(R.id.background);
         // We need to set the image view for each function that we define. Therefore need multiple picture options.
 
-        /** Button for the first action a player could make */
         actionOne = findViewById(R.id.actionOne);
 
-        /** Button for the second action a player could make. */
         actionTwo = findViewById(R.id.actionTwo);
 
-        /** Text containing the scenario for each specific event */
         label = findViewById(R.id.text);
 
         insult = findViewById(R.id.insult);
