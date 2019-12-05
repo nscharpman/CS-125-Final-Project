@@ -1,22 +1,30 @@
 package com.example.cs125finalproject;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.json.JSONArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -156,14 +164,34 @@ public class GameActivity extends AppCompatActivity {
     // - figure out how to set the image
     // - also finding images (use API that gives images for the story)
     // - get the story down
-    
+    public void triviaQuestions(String question) {
+        if (question.equals("Computer Questions T/F")) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "https://opentdb.com/api.php?amount=3&category=18&difficulty=medium&type=boolean";
+            StringRequest request = new StringRequest(Request.Method.GET, url, null, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String stuff) {
+                    Gson gson = new Gson();
+                    JsonElement element = gson.toJsonTree(stuff);
+                    // Eventually call the fight scene method once the json object is acquired
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    insult.setText("Fuck");
+                }
+            });
+        } else if (question.equals("Computer Questions Multiple")) {
+            RequestQueue queueTwo = Volley.newRequestQueue(this);
+        }
+    }
 
     public void webAPICaller(int number) {
         if (number == 1) {
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-                @Override
+                @Override // This needs to be a Json object request
                 public void onResponse(String response) {
                     insult.setText(response.substring(0, 500));
                 }
@@ -175,5 +203,11 @@ public class GameActivity extends AppCompatActivity {
             });
             queue.add(stringRequest);
         }
+    }
+
+    public void RiddlerFight(String input) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View inflater = getLayoutInflater().inflate(R.layout.chunk_presets_list,
+                null, false);
     }
 }
