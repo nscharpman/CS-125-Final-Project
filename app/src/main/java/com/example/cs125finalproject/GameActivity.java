@@ -19,12 +19,12 @@ public class GameActivity extends AppCompatActivity {
     private Button actionTwo = findViewById(R.id.actionTwo);
 
     /** Text containing the scenario for each specific event */
-    private TextView text = findViewById(R.id.text);
+    private TextView label = findViewById(R.id.text);
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
-        text.setText("Stuff and Things");
+        label.setText("Stuff and Things");
 
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
     public void firstEvent() {
         // Begin another event or something like that
         // Image view of person running away.
-        text.setText("You ran like a bitch");
+        label.setText("You ran like a bitch");
         actionOne.setText("Go back and kill the beast");
         actionTwo.setText("Keep running and find shelter");
         actionOne.setOnClickListener(unused -> thirdEvent());
@@ -43,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        text.setText("You stayed and fought the beast");
+        label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
         actionOne.setOnClickListener(unused -> fifthEvent());
@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void thirdEvent() {
-        text.setText("You went back for the beast. Kill him with either a sword or a knife");
+        label.setText("You went back for the beast. Kill him with either a sword or a knife");
         actionOne.setText("Kill with a sword");
         actionTwo.setText("Kill with a knife");
         actionOne.setOnClickListener(unused -> seventhEvent());
@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fourthEvent() {
-        text.setText("You have found shelter in an abandoned house. You hear a noise upstairs");
+        label.setText("You have found shelter in an abandoned house. You hear a noise upstairs");
         actionOne.setText("Investigate upstairs");
         actionTwo.setText("Leave the house and keep searching for your next mission");
         actionOne.setOnClickListener(unused -> ninthEvent());
@@ -67,27 +67,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fifthEvent() {
-        text.setText("That's disgusting. You die from poisoning");
+        label.setText("That's disgusting. You die from poisoning");
     }
 
     public void sixthEvent() {
-        text.setText("The village is happy you are protecting them");
+        label.setText("The village is happy you are protecting them");
     }
 
     public void seventhEvent() {
-        text.setText("The beasts armor is too strong to kill with a sword. The beast killed you");
+        label.setText("The beasts armor is too strong to kill with a sword. The beast killed you");
     }
 
     public void eighthEvent() {
-        text.setText("A knife... really? You tried to kill a beast with a knife? Yeah... you're dead");
+        label.setText("A knife... really? You tried to kill a beast with a knife? Yeah... you're dead");
     }
 
     public void ninthEvent() {
-        text.setText("The beast followed you and killed you upstairs");
+        label.setText("The beast followed you and killed you upstairs");
     }
 
     public void tenthEvent() {
-        text.setText("The beast's companion was outside waiting. It killed you");
+        label.setText("The beast's companion was outside waiting. It killed you");
     }
 
     //maybe add an animation using library
