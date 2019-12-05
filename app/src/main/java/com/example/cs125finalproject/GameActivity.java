@@ -31,7 +31,7 @@ public class GameActivity extends AppCompatActivity {
 
     private TextView insult = findViewById(R.id.insult);
 
-    private Map<Integer, String> artifact = new HashMap<>();
+    private Map<Integer, String> artifacts = new HashMap<>();
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +64,8 @@ public class GameActivity extends AppCompatActivity {
 
     public void thirdEvent() {
         label.setText("You went back for the beast. Kill him with either a sword or a knife");
-        actionOne.setText("Kill with a sword");
-        actionTwo.setText("Kill with a knife");
+        actionOne.setText("Attack with a sword");
+        actionTwo.setText("Attack with a knife");
         actionOne.setOnClickListener(unused -> seventhEvent());
         actionTwo.setOnClickListener(unused -> eighthEvent());
     }
@@ -79,7 +79,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fifthEvent() {
-        label.setText("That's disgusting. You can now move onto the next village or continue exploring");
+        label.setText("That's disgusting, but you have gained the healing charm from his blood. " +
+                "You can now move onto the next village or continue exploring");
+        artifacts.put(1, "Healing charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> eleventhEvent());
@@ -116,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void eleventhEvent() {
-
+        label.setText("");
     }
 
     public void twelthEvent() {
