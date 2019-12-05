@@ -7,6 +7,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
     private ImageView view = findViewById(R.id.background);
@@ -20,6 +27,8 @@ public class GameActivity extends AppCompatActivity {
 
     /** Text containing the scenario for each specific event */
     private TextView label = findViewById(R.id.text);
+
+    private TextView insult = findViewById(R.id.insult);
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,4 +102,34 @@ public class GameActivity extends AppCompatActivity {
     //maybe add an animation using library
     //maybe add a riddle for the user to solve
     //WebAPI to send random facts per answer from the user.
+    // maybe add an animation using library
+    // maybe add a riddle for the user to solve
+    // WebAPI to send random facts per answer from the user.
+    // Make a map variable to store items the users collect within the game
+
+    // Things to do
+    // - Fix the emulator
+    // - start the APIS
+    // - figure out how to set the image
+    // - also finding images (use API that gives images for the story)
+    // - get the story down
+
+    public void webAPICaller(int number) {
+        if (number == 1) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url ="https://evilinsult.com/generate_insult.php?lang=en&type=json";
+            StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    insult.setText(response.substring(0, 500));
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    insult.setText("Fuck");
+                }
+            });
+            queue.add(stringRequest);
+        }
+    }
 }
