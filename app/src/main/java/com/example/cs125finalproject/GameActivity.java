@@ -7,12 +7,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import java.util.Map;
+import java.util.HashMap;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -29,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
     private TextView label = findViewById(R.id.text);
 
     private TextView insult = findViewById(R.id.insult);
+
+    private Map<Integer, String> artifact = new HashMap<>();
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +96,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void seventhEvent() {
-        label.setText("The beasts armor is too strong to kill with a sword. The beast killed you");
+        label.setText("You have killed the beast. You can now move onto the next village or continue exploring");
+        actionOne.setText("Move onto next village");
+        actionTwo.setText("Continue exploring");
+        actionOne.setOnClickListener(unused -> fifteenthEvent());
+        actionTwo.setOnClickListener(unused -> sixteenthEvent());
     }
 
     public void eighthEvent() {
-        label.setText("A knife... really? You tried to kill a beast with a knife? Yeah... you're dead");
+        label.setText("I have to figure this one out.");
     }
 
     public void ninthEvent() {
@@ -121,6 +128,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fourteenthEvent() {
+
+    }
+
+    public void fifteenthEvent() {
+
+    }
+
+    public void sixteenthEvent() {
 
     }
 
