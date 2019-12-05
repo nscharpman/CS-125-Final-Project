@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.Map;
 import java.util.HashMap;
 
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -166,21 +167,20 @@ public class GameActivity extends AppCompatActivity {
     public void sixteenthEvent() {
 
     }
+    // Nic:
+    // - Work on Trivia API
+    // - Alert Dialog
+    // - EndGame Alert Dialog (Restart to first event (as positive button))
+    //
+    // Zakir:
+    // - Work on story
+    // - Add in map variable stuff
+    // - If person contains map variable, add third button.
 
-    //maybe add an animation using library
-    //maybe add a riddle for the user to solve
-    //WebAPI to send random facts per answer from the user.
-    // maybe add an animation using library
-    // maybe add a riddle for the user to solve
-    // WebAPI to send random facts per answer from the user.
-    // Make a map variable to store items the users collect within the game
 
-    // Things to do
-    // - Fix the emulator
-    // - start the APIS
-    // - figure out how to set the image
-    // - also finding images (use API that gives images for the story)
-    // - get the story down
+
+
+
     public void triviaQuestions(String question) {
         if (question.equals("Computer Questions T/F")) {
             RequestQueue queue = Volley.newRequestQueue(this);
