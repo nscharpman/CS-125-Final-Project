@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
     private ImageView view = findViewById(R.id.background);
@@ -20,6 +23,8 @@ public class GameActivity extends AppCompatActivity {
 
     /** Text containing the scenario for each specific event */
     private TextView label = findViewById(R.id.text);
+
+    private Map<Integer, String> artifact = new HashMap<>();
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
