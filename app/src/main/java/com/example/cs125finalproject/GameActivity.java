@@ -67,15 +67,25 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fifthEvent() {
-        label.setText("That's disgusting. You die from poisoning");
+        label.setText("That's disgusting. You can now move onto the next village or continue exploring");
+        actionOne.setText("Move onto next village");
+        actionTwo.setText("Continue exploring");
+        actionOne.setOnClickListener(unused -> eleventhEvent());
+        actionTwo.setOnClickListener(unused -> twelthEvent());
     }
 
     public void sixthEvent() {
-        label.setText("The village is happy you are protecting them");
+        label.setText("The village is happy you are protecting them. But not for long. You hear a" +
+                "loud bellowing from the forest");
+        actionOne.setText("Investigate the forest");
+        actionTwo.setText("Let the next passerby deal with it");
+        actionOne.setOnClickListener(unused -> thirteenthEvent());
+        actionOne.setOnClickListener(unused -> fourteenthEvent());
     }
 
     public void seventhEvent() {
         label.setText("The beasts armor is too strong to kill with a sword. The beast killed you");
+
     }
 
     public void eighthEvent() {
@@ -88,6 +98,22 @@ public class GameActivity extends AppCompatActivity {
 
     public void tenthEvent() {
         label.setText("The beast's companion was outside waiting. It killed you");
+    }
+
+    public void eleventhEvent() {
+
+    }
+
+    public void twelthEvent() {
+
+    }
+
+    public void thirteenthEvent() {
+
+    }
+
+    public void fourteenthEvent() {
+
     }
 
     //maybe add an animation using library
