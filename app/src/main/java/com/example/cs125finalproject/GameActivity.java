@@ -1,9 +1,11 @@
 package com.example.cs125finalproject;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -175,7 +177,7 @@ public class GameActivity extends AppCompatActivity {
     // - If person contains map variable, add third button.
 
 
-    public void triviaQuestions(String question) {
+    public void triviaQuestions(String context) {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -187,7 +189,7 @@ public class GameActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 JsonElement element = gson.toJsonTree(decodedString);
                 JsonObject object = element.getAsJsonObject();
-                RiddlerFight(object);
+                fightScene(object, context);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -197,12 +199,39 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    public void RiddlerFight(final JsonObject input) {
+    public void fightScene(final JsonObject input, final String context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
                 null, false);
-        RadioGroup presets = inflater.findViewById(R.id.answers);
-        JsonArray newInput = input.get("results").getAsJsonArray();
+        RadioGroup question = inflater.findViewById(R.id.answers);
+        JsonArray questions = input.get("results").getAsJsonArray();
+        for (JsonElement answers : questions) {
+            for (JsonElement answer : answers.getAsJsonObject().get("incorrect_answers").getAsJsonArray()) {
+                RadioButton otherAnswer = new RadioButton(this);
+                otherAnswer.setText(answer.getAsString());
+                question.addView(otherAnswer);
+            }
+            RadioButton actualAnswer = new RadioButton(this);
+            String theAnswer = answers.getAsJsonObject().get("correct_answer").getAsString();
+            actualAnswer.setText(theAnswer);
+            question.addView(actualAnswer);
+        }
+        builder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String officialAnswer = input.get("results").getAsJsonObject().get("correct_answer").getAsString();
+                int index = question.getCheckedRadioButtonId();
+                RadioButton button = question.findViewById(index);
+                if (button.getText().toString().equals(officialAnswer)) {
+                    // Send them to the next event
+                } else {
+                    // Lose their health or make them lose or something like that
+                }
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.setView(inflater);
+        dialog.show();
     }
 
     public void insultGenerator() {
