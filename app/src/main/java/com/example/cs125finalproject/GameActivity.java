@@ -140,6 +140,8 @@ public class GameActivity extends AppCompatActivity {
                     "Would you like to take your healing charm?");
             artifactButton.setVisibility(View.VISIBLE);
             artifactButton.setText("Use Healing Charm");
+            actionOne.setText("Move onto next village");
+            actionTwo.setText("Continue exploring");
             actionOne.setOnClickListener(unused -> sixthEvent());
             actionTwo.setOnClickListener(unused -> twelfthEvent());
             artifactButton.setOnClickListener(new View.OnClickListener() {
@@ -161,11 +163,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void ninthEvent() {
-        label.setText("The beast followed you and killed you upstairs");
+        label.setText("You have walked into darkness. Do you want to leave?");
+        actionOne.setText("Leave");
+        actionTwo.setText("Stay");
+        actionOne.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> seventeenthEvent());
     }
 
     public void tenthEvent() {
-        label.setText("The beast's companion was outside waiting. It killed you");
+        label.setText("You left the house. Exploring the wilderness, you come across a sign." +
+                "It reads 'This way to Sanctuary'. Follow the sign or no?");
+        actionOne.setText("Follow the sign");
+        actionTwo.setText("Don't follow the sign");
+        actionOne.setOnClickListener(unused -> sixthEvent());
     }
 
     public void eleventhEvent() {
@@ -187,6 +197,15 @@ public class GameActivity extends AppCompatActivity {
     public void fifteenthEvent() {
 
     }
+
+    public void sixteenthEvent() {
+
+    }
+
+    public void seventeenthEvent() {
+
+    }
+
 
     // Nic:
     // - Work on Trivia API
