@@ -176,29 +176,25 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void triviaQuestions(String question) {
-        if (question.equals("Computer Questions T/F")) {
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
-            StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String stuff) {
-                    // Is it possible to decode this before proceeding??
-                    byte[] decodedBytes = Base64.getDecoder().decode(stuff);
-                    String decodedString = new String(decodedBytes);
-                    Gson gson = new Gson();
-                    JsonElement element = gson.toJsonTree(decodedString);
-                    JsonObject object = element.getAsJsonObject();
-                    RiddlerFight(object);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    insult.setText("Fuck");
-                }
-            });
-        } else if (question.equals("Computer Questions Multiple")) {
-            RequestQueue queueTwo = Volley.newRequestQueue(this);
-        }
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String stuff) {
+                // Is it possible to decode this before proceeding??
+                byte[] decodedBytes = Base64.getDecoder().decode(stuff);
+                String decodedString = new String(decodedBytes);
+                Gson gson = new Gson();
+                JsonElement element = gson.toJsonTree(decodedString);
+                JsonObject object = element.getAsJsonObject();
+                RiddlerFight(object);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                insult.setText("Fuck");
+            }
+        });
     }
 
     public void RiddlerFight(final JsonObject input) {
