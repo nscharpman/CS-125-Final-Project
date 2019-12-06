@@ -36,6 +36,8 @@ public class GameActivity extends AppCompatActivity {
     /** Button for the second action a player could make. */
     private Button actionTwo;
 
+    private Button artifactButton;
+
     /** Text containing the scenario for each specific event */
     private TextView label;
 
@@ -53,6 +55,9 @@ public class GameActivity extends AppCompatActivity {
         actionOne = findViewById(R.id.actionOne);
 
         actionTwo = findViewById(R.id.actionTwo);
+
+        artifactButton = findViewById(R.id.artifactButton);
+        artifactButton.setVisibility(View.GONE);
 
         label = findViewById(R.id.text);
 
@@ -118,6 +123,7 @@ public class GameActivity extends AppCompatActivity {
         actionTwo.setText("Let the next passerby deal with it");
         actionOne.setOnClickListener(unused -> thirteenthEvent());
         actionTwo.setOnClickListener(unused -> fourteenthEvent());
+        artifactButton.setVisibility(View.GONE);
     }
 
     public void seventhEvent() {
@@ -125,11 +131,25 @@ public class GameActivity extends AppCompatActivity {
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> fifteenthEvent());
-        actionTwo.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> twelfthEvent());
     }
 
     public void eighthEvent() {
-        label.setText("");
+        if (artifacts.containsKey(1)) {
+            label.setText("You killed the beast but have taken significant damage. " +
+                    "Would you like to take your healing charm?");
+            artifactButton.setVisibility(View.VISIBLE);
+            artifactButton.setText("Use Healing Charm");
+            actionOne.setOnClickListener(unused -> sixthEvent());
+            actionTwo.setOnClickListener(unused -> twelfthEvent());
+        } else {
+            label.setText("You killed the beast but have taken significant damage. " +
+                    "Would you like to move onto the next village or continue exploring?");
+            actionOne.setText("Move onto the next village");
+            actionTwo.setText("Continue exploring");
+            actionOne.setOnClickListener(unused -> sixthEvent());
+            actionTwo.setOnClickListener(unused -> twelfthEvent());
+        }
     }
 
     public void ninthEvent() {
@@ -157,10 +177,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void fifteenthEvent() {
-
-    }
-
-    public void sixteenthEvent() {
 
     }
 

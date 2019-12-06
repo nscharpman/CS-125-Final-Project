@@ -19,6 +19,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="70dp" />
+
             <Button
                 android:id="@+id/actionOne"
                 android:layout_width="match_parent"
@@ -31,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/kill_stuff" />
 
-            <TextView
-                android:id="@+id/text"
+            <Button
+                android:id="@+id/artifactButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
