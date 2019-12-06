@@ -38,6 +38,8 @@ public class GameActivity extends AppCompatActivity {
     /** Button for the second action a player could make. */
     private Button actionTwo;
 
+    private Button artifactButton;
+
     /** Text containing the scenario for each specific event */
     private TextView label;
 
@@ -56,6 +58,9 @@ public class GameActivity extends AppCompatActivity {
 
         actionTwo = findViewById(R.id.actionTwo);
 
+        artifactButton = findViewById(R.id.artifactButton);
+        artifactButton.setVisibility(View.GONE);
+
         label = findViewById(R.id.text);
 
         insult = findViewById(R.id.insult);
@@ -70,7 +75,8 @@ public class GameActivity extends AppCompatActivity {
     public void firstEvent() {
         // Begin another event or something like that
         // Image view of person running away.
-        label.setText("You ran like a bitch");
+        label.setText("You ran like a bitch but you got a healing charm somehow. Gonna go away soon.");
+        artifacts.put(1, "Healing Charm");
         actionOne.setText("Go back and kill the beast");
         actionTwo.setText("Keep running and find shelter");
         actionOne.setOnClickListener(unused -> thirdEvent());
@@ -106,7 +112,6 @@ public class GameActivity extends AppCompatActivity {
     public void fifthEvent() {
         label.setText("That's disgusting, but you have gained the healing charm from his blood. " +
                 "You can now move onto the next village or continue exploring");
-        artifacts.put(1, "Healing charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> eleventhEvent());
@@ -120,6 +125,7 @@ public class GameActivity extends AppCompatActivity {
         actionTwo.setText("Let the next passerby deal with it");
         actionOne.setOnClickListener(unused -> thirteenthEvent());
         actionTwo.setOnClickListener(unused -> fourteenthEvent());
+        artifactButton.setVisibility(View.GONE);
     }
 
     public void seventhEvent() {
@@ -127,19 +133,51 @@ public class GameActivity extends AppCompatActivity {
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> fifteenthEvent());
-        actionTwo.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> twelfthEvent());
     }
 
     public void eighthEvent() {
-        label.setText("");
+        if (artifacts.containsKey(1)) {
+            label.setText("You killed the beast but have taken significant damage. " +
+                    "Would you like to take your healing charm?");
+            artifactButton.setVisibility(View.VISIBLE);
+            artifactButton.setText("Use Healing Charm");
+            actionOne.setText("Move onto next village");
+            actionTwo.setText("Continue exploring");
+            actionOne.setOnClickListener(unused -> sixthEvent());
+            actionTwo.setOnClickListener(unused -> twelfthEvent());
+            artifactButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    label.setText("You no longer have a healing charm!");
+                    artifacts.remove(1);
+                    artifactButton.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            label.setText("You killed the beast but have taken significant damage. " +
+                    "Would you like to move onto the next village or continue exploring?");
+            actionOne.setText("Move onto the next village");
+            actionTwo.setText("Continue exploring");
+            actionOne.setOnClickListener(unused -> sixthEvent());
+            actionTwo.setOnClickListener(unused -> twelfthEvent());
+        }
     }
 
     public void ninthEvent() {
-        label.setText("The beast followed you and killed you upstairs");
+        label.setText("You have walked into darkness. Do you want to leave?");
+        actionOne.setText("Leave");
+        actionTwo.setText("Stay");
+        actionOne.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> seventeenthEvent());
     }
 
     public void tenthEvent() {
-        label.setText("The beast's companion was outside waiting. It killed you");
+        label.setText("You left the house. Exploring the wilderness, you come across a sign." +
+                "It reads 'This way to Sanctuary'. Follow the sign or no?");
+        actionOne.setText("Follow the sign");
+        actionTwo.setText("Don't follow the sign");
+        actionOne.setOnClickListener(unused -> sixthEvent());
     }
 
     public void eleventhEvent() {
@@ -165,6 +203,11 @@ public class GameActivity extends AppCompatActivity {
     public void sixteenthEvent() {
 
     }
+
+    public void seventeenthEvent() {
+
+    }
+
 
     // Nic:
     // - Work on Trivia API
