@@ -129,7 +129,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void eighthEvent() {
-        label.setText("I have to figure this one out.");
+        label.setText("");
     }
 
     public void ninthEvent() {
