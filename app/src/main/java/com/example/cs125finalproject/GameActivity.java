@@ -145,6 +145,7 @@ public class GameActivity extends AppCompatActivity {
             artifactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    label.setText("You no longer have a healing charm!");
                     artifacts.remove(1);
                     artifactButton.setVisibility(View.GONE);
                 }
