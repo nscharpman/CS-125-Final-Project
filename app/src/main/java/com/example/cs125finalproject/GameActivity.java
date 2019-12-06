@@ -73,7 +73,8 @@ public class GameActivity extends AppCompatActivity {
     public void firstEvent() {
         // Begin another event or something like that
         // Image view of person running away.
-        label.setText("You ran like a bitch");
+        label.setText("You ran like a bitch but you got a healing charm somehow. Gonna go away soon.");
+        artifacts.put(1, "Healing Charm");
         actionOne.setText("Go back and kill the beast");
         actionTwo.setText("Keep running and find shelter");
         actionOne.setOnClickListener(unused -> thirdEvent());
@@ -109,7 +110,6 @@ public class GameActivity extends AppCompatActivity {
     public void fifthEvent() {
         label.setText("That's disgusting, but you have gained the healing charm from his blood. " +
                 "You can now move onto the next village or continue exploring");
-        artifacts.put(1, "Healing charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> eleventhEvent());
@@ -142,6 +142,13 @@ public class GameActivity extends AppCompatActivity {
             artifactButton.setText("Use Healing Charm");
             actionOne.setOnClickListener(unused -> sixthEvent());
             actionTwo.setOnClickListener(unused -> twelfthEvent());
+            artifactButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    artifacts.remove(1);
+                    artifactButton.setVisibility(View.GONE);
+                }
+            });
         } else {
             label.setText("You killed the beast but have taken significant damage. " +
                     "Would you like to move onto the next village or continue exploring?");
