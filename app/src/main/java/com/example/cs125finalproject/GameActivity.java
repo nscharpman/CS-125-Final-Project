@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.Map;
@@ -26,6 +27,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -47,7 +52,9 @@ public class GameActivity extends AppCompatActivity {
 
     private Map<Integer, String> artifacts;
 
-    private JsonObject object;
+    //private JsonObject object;
+
+    private JSONObject thing;
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,8 @@ public class GameActivity extends AppCompatActivity {
         insult = findViewById(R.id.insult);
 
         artifacts = new HashMap<>();
+
+        view.setImageResource(R.drawable.jurassic);
         originalEvent();
     }
 
@@ -227,30 +236,75 @@ public class GameActivity extends AppCompatActivity {
     // - If person contains map variable, add third button.
 
 
+    public void otherQuestions(String context) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            // Have to do this individually
+            //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
+            //String decodedString = new String(decodedBytes);
+            JsonParser jsonParser = new JsonParser();
+            JsonElement element = jsonParser.parse(response);
+            //object = element.getAsJsonObject();
+        }, error -> insult.setText("Fuck"));
+        queue.add(request);
+        //fightScene(object, context);
+    }
+
     public void triviaQuestions(String context) {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String stuff) {
-                // Is it possible to decode this before proceeding??
-                byte[] decodedBytes = Base64.getDecoder().decode(stuff);
-                String decodedString = new String(decodedBytes);
-                JsonParser jsonParser = new JsonParser();
-                JsonElement element = jsonParser.parse(decodedString);
-                object = element.getAsJsonObject();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                insult.setText("Fuck");
-            }
-        });
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+                thing = response;
+        }, error -> insult.setText("Fuck"));
         queue.add(request);
-        fightScene(object, context);
+        fightScene(thing, context);
     }
 
-    public void fightScene(final JsonObject input, final String context) {
+    public void fightScene(final JSONObject input, final String context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
+                null, false);
+        RadioGroup question = inflater.findViewById(R.id.answers);
+        TextView questionBox = inflater.findViewById(R.id.question);
+        TextView scenario = inflater.findViewById(R.id.scenario);
+        scenario.setText(context);
+        try {
+            JSONObject object = input.getJSONArray("results").getJSONObject(0);
+            questionBox.setText(object.getString("question"));
+            for (int i = 0; i < object.getJSONArray("incorrect_answers").length(); i++) {
+                RadioButton otherAnswer = new RadioButton(this);
+                otherAnswer.setText(object.getJSONArray("incorrect_answers").get(i).toString());
+                question.addView(otherAnswer);
+            }
+
+            RadioButton actualAnswer = new RadioButton(this);
+            String theAnswer = object.getString("correct_answers");
+            actualAnswer.setText(theAnswer);
+            question.addView(actualAnswer);
+            builder.setPositiveButton("Enter", (dialogInterface, i) -> {
+                try {
+                    String officialAnswer = input.getJSONObject("results").getString("correct_answers");
+                    int index = question.getCheckedRadioButtonId();
+                    RadioButton button = question.findViewById(index);
+                    if (button.getText().toString().equals(officialAnswer)) {
+                        insult.setText("You have survived this fight");
+                    } else {
+                        insult.setText("You have lost one heart");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.setView(inflater);
+            dialog.show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void scene(final JsonObject input, final String context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
                 null, false);
@@ -271,17 +325,14 @@ public class GameActivity extends AppCompatActivity {
             actualAnswer.setText(theAnswer);
             question.addView(actualAnswer);
         }
-        builder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String officialAnswer = input.get("results").getAsJsonObject().get("correct_answer").getAsString();
-                int index = question.getCheckedRadioButtonId();
-                RadioButton button = question.findViewById(index);
-                if (button.getText().toString().equals(officialAnswer)) {
-                    insult.setText("You have survived this fight");
-                } else {
-                    insult.setText("You have lost one heart");
-                }
+        builder.setPositiveButton("Enter", (dialogInterface, i) -> {
+            String officialAnswer = input.get("results").getAsJsonObject().get("correct_answer").getAsString();
+            int index = question.getCheckedRadioButtonId();
+            RadioButton button = question.findViewById(index);
+            if (button.getText().toString().equals(officialAnswer)) {
+                insult.setText("You have survived this fight");
+            } else {
+                insult.setText("You have lost one heart");
             }
         });
         AlertDialog dialog = builder.create();
@@ -292,6 +343,7 @@ public class GameActivity extends AppCompatActivity {
     public void endGame() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
+        artifacts.clear();
         builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
         builder.create().show();
     }
@@ -299,17 +351,8 @@ public class GameActivity extends AppCompatActivity {
     public void insultGenerator() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-            @Override // This needs to be a Json object request
-            public void onResponse(String response) {
-                insult.setText(response.substring(0, 500));
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                insult.setText("Fuck");
-            }
-        });
+        // This needs to be a Json object request
+        StringRequest stringRequest = new StringRequest(url, response -> insult.setText(response.substring(0, 500)), error -> insult.setText("Fuck"));
         queue.add(stringRequest);
     }
 }
