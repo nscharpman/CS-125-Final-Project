@@ -52,15 +52,12 @@ public class GameActivity extends AppCompatActivity {
 
     private Map<Integer, String> artifacts;
 
-    //private JsonObject object;
-
-    private JSONObject thing;
-
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
         view = findViewById(R.id.background);
+        // We need to set the image view for each function that we define. Therefore need multiple picture options.
 
         actionOne = findViewById(R.id.actionOne);
 
@@ -75,14 +72,7 @@ public class GameActivity extends AppCompatActivity {
 
         artifacts = new HashMap<>();
 
-        view.setImageResource(R.drawable.jurassic);
-        originalEvent();
-    }
-
-    public void originalEvent() {
         label.setText("Stuff and Things");
-        actionOne.setText("Run");
-        actionTwo.setText("Kill Stuff");
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
     }
@@ -101,7 +91,6 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        triviaQuestions("Context for this fight");
         label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
