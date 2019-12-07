@@ -22,10 +22,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Base64;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -47,12 +47,13 @@ public class GameActivity extends AppCompatActivity {
 
     private Map<Integer, String> artifacts;
 
+    private JsonObject object;
+
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
         view = findViewById(R.id.background);
-        // We need to set the image view for each function that we define. Therefore need multiple picture options.
 
         actionOne = findViewById(R.id.actionOne);
 
@@ -66,8 +67,13 @@ public class GameActivity extends AppCompatActivity {
         insult = findViewById(R.id.insult);
 
         artifacts = new HashMap<>();
+        originalEvent();
+    }
 
+    public void originalEvent() {
         label.setText("Stuff and Things");
+        actionOne.setText("Run");
+        actionTwo.setText("Kill Stuff");
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
     }
@@ -86,6 +92,7 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
+        triviaQuestions("Context for this fight");
         label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
@@ -229,10 +236,9 @@ public class GameActivity extends AppCompatActivity {
                 // Is it possible to decode this before proceeding??
                 byte[] decodedBytes = Base64.getDecoder().decode(stuff);
                 String decodedString = new String(decodedBytes);
-                Gson gson = new Gson();
-                JsonElement element = gson.toJsonTree(decodedString);
-                JsonObject object = element.getAsJsonObject();
-                fightScene(object, context);
+                JsonParser jsonParser = new JsonParser();
+                JsonElement element = jsonParser.parse(decodedString);
+                object = element.getAsJsonObject();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -240,6 +246,8 @@ public class GameActivity extends AppCompatActivity {
                 insult.setText("Fuck");
             }
         });
+        queue.add(request);
+        fightScene(object, context);
     }
 
     public void fightScene(final JsonObject input, final String context) {
@@ -248,7 +256,11 @@ public class GameActivity extends AppCompatActivity {
                 null, false);
         RadioGroup question = inflater.findViewById(R.id.answers);
         JsonArray questions = input.get("results").getAsJsonArray();
+        TextView questionBox = inflater.findViewById(R.id.question);
+        TextView scenario = inflater.findViewById(R.id.scenario);
+        scenario.setText(context);
         for (JsonElement answers : questions) {
+            questionBox.setText(answers.getAsJsonObject().get("question").getAsString());
             for (JsonElement answer : answers.getAsJsonObject().get("incorrect_answers").getAsJsonArray()) {
                 RadioButton otherAnswer = new RadioButton(this);
                 otherAnswer.setText(answer.getAsString());
@@ -266,15 +278,22 @@ public class GameActivity extends AppCompatActivity {
                 int index = question.getCheckedRadioButtonId();
                 RadioButton button = question.findViewById(index);
                 if (button.getText().toString().equals(officialAnswer)) {
-                    // Send them to the next event
+                    insult.setText("You have survived this fight");
                 } else {
-                    // Lose their health or make them lose or something like that
+                    insult.setText("You have lost one heart");
                 }
             }
         });
         AlertDialog dialog = builder.create();
         dialog.setView(inflater);
         dialog.show();
+    }
+
+    public void endGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You have died. Make another pathetic attempt.");
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
     }
 
     public void insultGenerator() {
