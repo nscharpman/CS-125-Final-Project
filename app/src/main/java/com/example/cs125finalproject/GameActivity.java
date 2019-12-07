@@ -200,7 +200,9 @@ public class GameActivity extends AppCompatActivity {
     public void twelfthEvent() {
         label.setText("As you slowly step into the forest, the wind picks up and nothing is certain anymore. " +
                 "You hear noises all around you not knowing what is what. You see a shadow lurking behind a tree");
-        actionOne.setText("");
+        actionOne.setText("Investigate shadow");
+        actionTwo.setText("Get out of forest");
+        actionOne.setOnClickListener(unused -> seventeenthEvent());
     }
 
     //When the person is in the village and doesn't want to go to the forest
@@ -217,6 +219,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void sixteenthEvent() {
+
+    }
+
+    public void seventeenthEvent() {
 
     }
 
