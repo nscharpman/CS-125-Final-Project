@@ -114,17 +114,17 @@ public class GameActivity extends AppCompatActivity {
                 "You can now move onto the next village or continue exploring");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
-        actionOne.setOnClickListener(unused -> eleventhEvent());
-        actionTwo.setOnClickListener(unused -> twelfthEvent());
+        actionOne.setOnClickListener(unused -> sixthEvent());
+        actionTwo.setOnClickListener(unused -> eleventhEvent());
     }
 
     public void sixthEvent() {
-        label.setText("The village is happy you are protecting them, but not for long. You hear a " +
+        label.setText("The village is happy you are have come to protect them, but not for long. You hear a " +
                 "loud bellowing from the forest");
         actionOne.setText("Investigate the forest");
         actionTwo.setText("Let the next passerby deal with it");
-        actionOne.setOnClickListener(unused -> thirteenthEvent());
-        actionTwo.setOnClickListener(unused -> fourteenthEvent());
+        actionOne.setOnClickListener(unused -> twelfthEvent());
+        actionTwo.setOnClickListener(unused -> thirteenthEvent());
         artifactButton.setVisibility(View.GONE);
     }
 
@@ -132,8 +132,8 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have killed the beast. You can now move onto the next village or continue exploring");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
-        actionOne.setOnClickListener(unused -> fifteenthEvent());
-        actionTwo.setOnClickListener(unused -> twelfthEvent());
+        actionOne.setOnClickListener(unused -> fourteenthEvent());
+        actionTwo.setOnClickListener(unused -> eleventhEvent());
     }
 
     public void eighthEvent() {
@@ -145,7 +145,7 @@ public class GameActivity extends AppCompatActivity {
             actionOne.setText("Move onto next village");
             actionTwo.setText("Continue exploring");
             actionOne.setOnClickListener(unused -> sixthEvent());
-            actionTwo.setOnClickListener(unused -> twelfthEvent());
+            actionTwo.setOnClickListener(unused -> eleventhEvent());
             artifactButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -160,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
             actionOne.setText("Move onto the next village");
             actionTwo.setText("Continue exploring");
             actionOne.setOnClickListener(unused -> sixthEvent());
-            actionTwo.setOnClickListener(unused -> twelfthEvent());
+            actionTwo.setOnClickListener(unused -> eleventhEvent());
         }
     }
 
@@ -168,26 +168,40 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have walked into darkness. Do you want to leave?");
         actionOne.setText("Leave");
         actionTwo.setText("Stay");
-        actionOne.setOnClickListener(unused -> sixteenthEvent());
-        actionTwo.setOnClickListener(unused -> seventeenthEvent());
+        actionOne.setOnClickListener(unused -> fifteenthEvent());
+        actionTwo.setOnClickListener(unused -> sixteenthEvent());
     }
 
     public void tenthEvent() {
         label.setText("You left the house. Exploring the wilderness, you come across a sign." +
-                "It reads 'This way to Sanctuary'. Follow the sign or no?");
+                "It reads 'This way to Sanctuary: a small village'. Follow the sign or no?");
         actionOne.setText("Follow the sign");
         actionTwo.setText("Don't follow the sign");
         actionOne.setOnClickListener(unused -> sixthEvent());
+        actionTwo.setOnClickListener(unused -> eleventhEvent());
     }
 
+    //When the player wants to keep exploring
     public void eleventhEvent() {
-        label.setText("");
+        label.setText("As you explore the dark depths of the wilderness, " +
+                "fighting for your life in every corner of the world, you come across a tiny village named Lurgsberg");
+        actionOne.setText("Enter Lurgsberg");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                sixthEvent();
+            }
+        });
     }
 
+    //When they investigate the forest
     public void twelfthEvent() {
 
     }
 
+    //When the person is in the village and doesn't want to go to the forest
     public void thirteenthEvent() {
 
     }
@@ -201,10 +215,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void sixteenthEvent() {
-
-    }
-
-    public void seventeenthEvent() {
 
     }
 
