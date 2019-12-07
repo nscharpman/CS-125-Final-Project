@@ -198,7 +198,9 @@ public class GameActivity extends AppCompatActivity {
 
     //When they investigate the forest
     public void twelfthEvent() {
-
+        label.setText("As you slowly step into the forest, the wind picks up and nothing is certain anymore. " +
+                "You hear noises all around you not knowing what is what. You see a shadow lurking behind a tree");
+        actionOne.setText("");
     }
 
     //When the person is in the village and doesn't want to go to the forest
