@@ -135,6 +135,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void sixthEvent() {
+        view.setImageResource(R.drawable.village);
         label.setText("The village is happy you are have come to protect them, but not for long. You hear a " +
                 "loud bellowing from the forest");
         actionOne.setText("Investigate the forest");
@@ -368,6 +369,7 @@ public class GameActivity extends AppCompatActivity {
     // - Work on story
     // - Add in map variable stuff
     // - If person contains map variable, add third button.
+    // 2160 X 1215
 
     // Nic:
     // - Work on Trivia API
