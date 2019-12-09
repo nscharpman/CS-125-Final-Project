@@ -243,17 +243,6 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
-    // Nic:
-    // - Work on Trivia API
-    // - Alert Dialog
-    // - EndGame Alert Dialog (Restart to first event (as positive button))
-    //
-    // Zakir:
-    // - Work on story
-    // - Add in map variable stuff
-    // - If person contains map variable, add third button.
-
     // Nic:
     // - Work on Trivia API
     // - Alert Dialog
@@ -272,12 +261,12 @@ public class GameActivity extends AppCompatActivity {
             // Have to do this individually
             //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
             //String decodedString = new String(decodedBytes);
-            insult.setText(response);
             JsonParser jsonParser = new JsonParser();
             JsonElement element = jsonParser.parse(response);
-            fightScene(element.getAsJsonObject(), context);
+            object = element.getAsJsonObject();
         }, error -> insult.setText("Fuck"));
         queue.add(request);
+        fightScene(object, context);
     }
 
     public void questions(String context) {
