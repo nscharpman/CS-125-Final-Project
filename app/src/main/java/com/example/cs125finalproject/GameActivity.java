@@ -1,6 +1,5 @@
 package com.example.cs125finalproject;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import java.util.Map;
@@ -27,10 +23,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class GameActivity extends AppCompatActivity {
     /** Background view to change at each event */
@@ -54,8 +46,6 @@ public class GameActivity extends AppCompatActivity {
 
     private JsonObject object;
 
-    private JSONObject thing;
-
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
@@ -76,14 +66,14 @@ public class GameActivity extends AppCompatActivity {
 
         artifacts = new HashMap<>();
 
-        view.setImageResource(R.drawable.jurassic);
         originalEvent();
     }
 
     public void originalEvent() {
-        label.setText("Stuff and Things");
+        label.setText("Welcome to the magical game of ");
         actionOne.setText("Run");
         actionTwo.setText("Kill Stuff");
+        view.setImageResource(R.drawable.jurassic);
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
     }
@@ -102,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        triviaQuestions("context");
+        triviaQuestions("You stayed and fought the beast");
         label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
@@ -136,6 +126,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void sixthEvent() {
+        view.setImageResource(R.drawable.village);
         label.setText("The village is happy you are have come to protect them, but not for long. You hear a " +
                 "loud bellowing from the forest");
         actionOne.setText("Investigate the forest");
@@ -149,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have killed the beast. You can now move onto the next village or continue exploring");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
-        actionOne.setOnClickListener(unused -> fourteenthEvent());
+        actionOne.setOnClickListener(unused -> sixthEvent());
         actionTwo.setOnClickListener(unused -> eleventhEvent());
     }
 
@@ -185,8 +176,8 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have walked into darkness. Do you want to leave?");
         actionOne.setText("Leave");
         actionTwo.setText("Stay");
-        actionOne.setOnClickListener(unused -> fifteenthEvent());
-        actionTwo.setOnClickListener(unused -> sixteenthEvent());
+        actionOne.setOnClickListener(unused -> fourteenthEvent());
+        actionTwo.setOnClickListener(unused -> fifteenthEvent());
     }
 
     public void tenthEvent() {
@@ -215,105 +206,161 @@ public class GameActivity extends AppCompatActivity {
 
     //When they investigate the forest
     public void twelfthEvent() {
+        view.setImageResource(R.drawable.darkforest);
         label.setText("As you slowly step into the forest, the wind picks up and nothing is certain anymore. " +
                 "You hear noises all around you not knowing what is what. You see a shadow lurking behind a tree");
         actionOne.setText("Investigate shadow");
         actionTwo.setText("Get out of forest");
-        actionOne.setOnClickListener(unused -> seventeenthEvent());
+        actionOne.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> seventeenthEvent());
     }
 
     //When the person is in the village and doesn't want to go to the forest
     public void thirteenthEvent() {
-        label.setText("");
+        label.setText("The girls in the village call you a pussy. Holding back tears to not embarrass yourself, " +
+                "you reluctantly enter the forest.");
+        actionOne.setText("Enter the forest");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                twelfthEvent();
+            }
+        });
     }
 
+    //Leave the darkness
     public void fourteenthEvent() {
-
+        label.setText("Tis a good option. As you leave the darkness, you decide to explore the wilderness. " +
+                "Fighting for you life, you come across a small village named Lurgsberg");
+        actionOne.setText("Enter Lurgsberg");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                sixthEvent();
+            }
+        });
     }
 
+    //Stays in the darkness from event 9
     public void fifteenthEvent() {
-
+        badEndGameOne();
     }
 
+    //When the player approaches the shadow lurking behind the tree
     public void sixteenthEvent() {
-
+        label.setText("As you approach the shadow, a leprechaun pops out from behind the tree. He states " +
+                "'My name is Challen. I love my name!' and proceeds to throw a magical coin at you and runs away.");
+        actionOne.setText("Pick up the coin");
+        actionTwo.setText("Follow the leprechaun before he gets away");
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                artifacts.put(2, "Magical Coin");
+                eighteenthEvent();
+            }
+        });
+        actionTwo.setOnClickListener(unused -> nineteenthEvent());
     }
 
+    //When the player gets out of the forest instead of investigating the shadow
     public void seventeenthEvent() {
 
     }
 
-    // Nic:
-    // - Work on Trivia API
-    // - Alert Dialog
-    // - EndGame Alert Dialog (Restart to first event (as positive button))
-    // Pexels API Key: 563492ad6f91700001000001837d5ce9920e471398d93508b6d952d5
-    // Zakir:
-    // - Work on story
-    // - Add in map variable stuff
-    // - If person contains map variable, add third button.
+    //After the player picks up the magical coin
+    public void eighteenthEvent() {
+        label.setText("Congrats! You have added the magical coin to your artifact pouch. You now have the option to try figuring out if you " +
+                "would like to track the leprechaun or head back to the village");
+        actionOne.setText("Track leprechaun");
+        actionTwo.setText("Head back to the village");
+        actionOne.setOnClickListener(unused -> nineteenthEvent());
+        actionTwo.setOnClickListener(unused -> twentyEvent());
+    }
 
+    //Following the leprechaun
+    public void nineteenthEvent() {
+        label.setText("Using your 'detective-like' skills, you follow the footsteps created in the mud by the leprechaun. " +
+                "Suddenly, they stop and you are completely lost. You hear giggling but you have no idea where it's coming from.");
+        actionOne.setText("Go east toward the giggling");
+        actionTwo.setText("Go west toward the giggling");
+        actionOne.setOnClickListener(unused -> twentyOneEvent());
+        actionTwo.setOnClickListener(unused -> twentyTwoEvent());
+    }
 
-    public void triviaQuestions(String context) {
+    //If the person gets the coin and goes back to village
+    public void twentyEvent() {
+        label.setText("As you get back to the village, many start to ask questions. You answer with dead silence. " +
+                "They start to pressure you into giving up the coin in order to leave you alone");
+        actionOne.setText("Give up the coin");
+        actionTwo.setText("Punch a couple and run");
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                artifacts.remove(2);
+                twentyThreeEvent();
+            }
+        });
+        actionTwo.setOnClickListener(unused -> twentyFourEvent());
+    }
+
+    //If the person goes east toward the actual leprechaun
+    public void twentyOneEvent() {
+        label.setText("Sitting to the east, you find the leprechaun sitting with his pot of gold. He gives you an option, " +
+                "either answer a riddle or fight him for the gold.");
+        actionOne.setText("Answer the riddle");
+        actionTwo.setText("Fight the leprechaun");
+        actionOne.setOnClickListener(unused -> twentyFiveEvent());
+        actionTwo.setOnClickListener(unused -> badEndGameTwo());
+    }
+
+    //If the person goes west toward the cave of lurkers.
+    public void twentyTwoEvent() {
+        label.setText("You walk into a cave. In the dark, the lurkers hear all your footsteps. ");
+    }
+
+    //If the person gives up the coin to the village
+    public void twentyThreeEvent() {
+        label.setText("You no longer have the coin. You flee");
+    }
+
+    //If the person punches there way out of the village with the coin
+    public void twentyFourEvent() {
+
+    }
+
+    //If the player decides to answer the riddle of the leprechaun
+    public void twentyFiveEvent() {
+        label.setText("The leprechaun gives you to following riddle: 'I have cities, but no houses. I have mountains," +
+                " but no trees. I have water, but no fish. What am I?'");
+        actionOne.setText("Colorado");
+        actionTwo.setText("Chernobyl");
+        artifactButton.setVisibility(View.VISIBLE);
+        artifactButton.setText("A Map");
+        actionOne.setOnClickListener(unused -> badEndGameThree());
+        actionTwo.setOnClickListener(unused -> badEndGameThree());
+        artifactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.setImageResource(R.drawable.jurassic);
+                artifactButton.setVisibility(View.GONE);
+                goodEndGame();
+            }
+        });
+    }
+
+    // 2160 X 1215
+
+    public void triviaQuestions(final String context) {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
-            // Have to do this individually
-            //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
-            //String decodedString = new String(decodedBytes);
             JsonParser jsonParser = new JsonParser();
             JsonElement element = jsonParser.parse(response);
-            object = element.getAsJsonObject();
-        }, error -> insult.setText("Fuck"));
-        queue.add(request);
-        fightScene(object, context);
-    }
-
-    public void questions(String context) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
-                null, false);
-        RadioGroup question = inflater.findViewById(R.id.answers);
-        TextView questionBox = inflater.findViewById(R.id.question);
-        TextView scenario = inflater.findViewById(R.id.scenario);
-        scenario.setText(context);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-
-            try {
-                JSONObject object = response.getJSONArray("results").getJSONObject(0);
-                questionBox.setText(object.getString("question"));
-                for (int i = 0; i < object.getJSONArray("incorrect_answers").length(); i++) {
-                    RadioButton otherAnswer = new RadioButton(this);
-                    otherAnswer.setText(object.getJSONArray("incorrect_answers").get(i).toString());
-                    question.addView(otherAnswer);
-                }
-
-                RadioButton actualAnswer = new RadioButton(this);
-                String theAnswer = object.getString("correct_answers");
-                actualAnswer.setText(theAnswer);
-                question.addView(actualAnswer);
-                builder.setPositiveButton("Enter", (dialogInterface, i) -> {
-                    try {
-                        String officialAnswer = response.getJSONObject("results").getString("correct_answers");
-                        int index = question.getCheckedRadioButtonId();
-                        RadioButton button = question.findViewById(index);
-                        if (button.getText().toString().equals(officialAnswer)) {
-                            insult.setText("You have survived this fight");
-                        } else {
-                            insult.setText("You have lost one heart");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.setView(inflater);
-                dialog.show();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            fightScene(element.getAsJsonObject(), context);
         }, error -> insult.setText("Fuck"));
         queue.add(request);
     }
@@ -323,30 +370,43 @@ public class GameActivity extends AppCompatActivity {
         View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
                 null, false);
         RadioGroup question = inflater.findViewById(R.id.answers);
+        object = input;
         JsonArray questions = input.get("results").getAsJsonArray();
         TextView questionBox = inflater.findViewById(R.id.question);
         TextView scenario = inflater.findViewById(R.id.scenario);
         scenario.setText(context);
         for (JsonElement answers : questions) {
-            questionBox.setText(answers.getAsJsonObject().get("question").getAsString());
+            String theQuestion = answers.getAsJsonObject().get("question").getAsString();
+            byte[] decodedBytes = Base64.getDecoder().decode(theQuestion);
+            String decodedString1 = new String(decodedBytes);
+            questionBox.setText(decodedString1);
             for (JsonElement answer : answers.getAsJsonObject().get("incorrect_answers").getAsJsonArray()) {
                 RadioButton otherAnswer = new RadioButton(this);
-                otherAnswer.setText(answer.getAsString());
+                String incorrectAnswer = answer.getAsString();
+                byte[] decodedBytes2 = Base64.getDecoder().decode(incorrectAnswer);
+                String decodedString2 = new String(decodedBytes2);
+                otherAnswer.setText(decodedString2);
                 question.addView(otherAnswer);
             }
             RadioButton actualAnswer = new RadioButton(this);
             String theAnswer = answers.getAsJsonObject().get("correct_answer").getAsString();
-            actualAnswer.setText(theAnswer);
+            byte[] decodedBytes3 = Base64.getDecoder().decode(theAnswer);
+            String decodedString3 = new String(decodedBytes3);
+            actualAnswer.setText(decodedString3);
             question.addView(actualAnswer);
         }
         builder.setPositiveButton("Enter", (dialogInterface, i) -> {
-            String officialAnswer = input.get("results").getAsJsonObject().get("correct_answer").getAsString();
-            int index = question.getCheckedRadioButtonId();
-            RadioButton button = question.findViewById(index);
-            if (button.getText().toString().equals(officialAnswer)) {
-                insult.setText("You have survived this fight");
-            } else {
-                insult.setText("You have lost one heart");
+            for (JsonElement answers : questions) {
+                String theAnswer = answers.getAsJsonObject().get("correct_answer").getAsString();
+                byte[] decodedBytes3 = Base64.getDecoder().decode(theAnswer);
+                String decodedString3 = new String(decodedBytes3);
+                int index = question.getCheckedRadioButtonId();
+                RadioButton button = question.findViewById(index);
+                if (button.getText().toString().equals(decodedString3)) {
+                    insult.setText("You have survived this fight");
+                } else {
+                    badEndGameOne();
+                }
             }
         });
         AlertDialog dialog = builder.create();
@@ -354,7 +414,7 @@ public class GameActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void endGame() {
+    public void badEndGameOne() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
         artifacts.clear();
@@ -362,11 +422,28 @@ public class GameActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public void insultGenerator() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://evilinsult.com/generate_insult.php?lang=en&type=json";
-        // This needs to be a Json object request
-        StringRequest stringRequest = new StringRequest(url, response -> insult.setText(response.substring(0, 500)), error -> insult.setText("Fuck"));
-        queue.add(stringRequest);
+    public void badEndGameTwo() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("The leprechaun had a dragon lurking in the shadows. It killed you");
+        artifacts.clear();
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void badEndGameThree() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You got the riddle wrong. The leprechaun dropped a tree on you for being stupid");
+        artifacts.clear();
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void goodEndGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Congratulations! You got the pot of gold and live happily ever after in a big mansion. " +
+                "You have successfully finished the game!");
+        artifacts.clear();
+        builder.setPositiveButton("Play Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
     }
 }
