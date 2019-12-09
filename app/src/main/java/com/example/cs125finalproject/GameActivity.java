@@ -214,6 +214,7 @@ public class GameActivity extends AppCompatActivity {
 
     //When they investigate the forest
     public void twelfthEvent() {
+        view.setImageResource(R.drawable.darkforest);
         label.setText("As you slowly step into the forest, the wind picks up and nothing is certain anymore. " +
                 "You hear noises all around you not knowing what is what. You see a shadow lurking behind a tree");
         actionOne.setText("Investigate shadow");
@@ -254,7 +255,7 @@ public class GameActivity extends AppCompatActivity {
 
     //Stays in the darkness from event 9
     public void fifteenthEvent() {
-        endGame();
+        badEndGameOne();
     }
 
     //When the player approaches the shadow lurking behind the tree
@@ -321,12 +322,12 @@ public class GameActivity extends AppCompatActivity {
         actionOne.setText("Answer the riddle");
         actionTwo.setText("Fight the leprechaun");
         actionOne.setOnClickListener(unused -> twentyFiveEvent());
-        actionTwo.setOnClickListener(unused -> twoEndGame());
+        actionTwo.setOnClickListener(unused -> badEndGameTwo());
     }
 
     //If the person goes west toward the cave of lurkers.
     public void twentyTwoEvent() {
-
+        label.setText("You walk into a cave. In the dark, the lurkers hear all your footsteps. ");
     }
 
     //If the person gives up the coin to the village
@@ -341,7 +342,21 @@ public class GameActivity extends AppCompatActivity {
 
     //If the player decides to answer the riddle of the leprechaun
     public void twentyFiveEvent() {
-
+        label.setText("The leprechaun gives you to following riddle: 'I have cities, but no houses. I have mountains," +
+                " but no trees. I have water, but no fish. What am I?'");
+        actionOne.setText("Colorado");
+        actionTwo.setText("Chernobyl");
+        artifactButton.setVisibility(View.VISIBLE);
+        artifactButton.setText("A Map");
+        actionOne.setOnClickListener(unused -> badEndGameThree());
+        actionTwo.setOnClickListener(unused -> badEndGameThree());
+        artifactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                artifactButton.setVisibility(View.GONE);
+                goodEndGame();
+            }
+        });
     }
 
     // Nic:
@@ -462,7 +477,7 @@ public class GameActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void endGame() {
+    public void badEndGameOne() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
         artifacts.clear();
@@ -470,11 +485,28 @@ public class GameActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    public void twoEndGame() {
+    public void badEndGameTwo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The leprechaun had a dragon lurking in the shadows. It killed you");
         artifacts.clear();
         builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void badEndGameThree() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You got the riddle wrong. The leprechaun dropped a tree on you for being stupid");
+        artifacts.clear();
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void goodEndGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Congratulations! You got the pot of gold and live happily ever after in a big mansion. " +
+                "You have successfully finished the game!");
+        artifacts.clear();
+        builder.setPositiveButton("Play Again", (unused1, unused2) -> originalEvent());
         builder.create().show();
     }
 

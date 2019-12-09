@@ -25,6 +25,11 @@
                 android:layout_height="70dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
+            <TextView
+                android:id="@+id/insult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/actionOne"
                 android:layout_width="match_parent"
@@ -39,11 +44,6 @@
 
             <Button
                 android:id="@+id/artifactButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/insult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
