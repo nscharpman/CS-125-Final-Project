@@ -391,9 +391,10 @@ public class GameActivity extends AppCompatActivity {
             // Have to do this individually
             //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
             //String decodedString = new String(decodedBytes);
+            insult.setText(response);
         }, error -> insult.setText("Fuck"));
         queue.add(request);
-        fightScene(object);
+        //fightScene(object);
     }
 
     public void questions(String context) {
