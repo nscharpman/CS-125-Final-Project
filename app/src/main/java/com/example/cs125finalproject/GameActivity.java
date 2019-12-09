@@ -459,6 +459,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameOne() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
         artifacts.clear();
@@ -467,6 +468,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameTwo() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The leprechaun had a dragon lurking in the shadows. It killed you");
         artifacts.clear();
@@ -475,6 +477,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameThree() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You got the riddle wrong. The leprechaun dropped a tree on you for being stupid");
         artifacts.clear();
@@ -483,6 +486,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameFour() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You died because you were a pussy");
         artifacts.clear();
@@ -491,6 +495,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameFive() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The lurkers got you. They ate your flesh and you died.");
         artifacts.clear();
@@ -499,6 +504,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void goodEndGame() {
+        view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Congratulations! You got the pot of gold and live happily ever after in a big mansion. " +
                 "You have successfully finished the game!");
