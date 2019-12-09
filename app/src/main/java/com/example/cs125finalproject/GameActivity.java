@@ -239,7 +239,17 @@ public class GameActivity extends AppCompatActivity {
 
     //Leave the darkness
     public void fourteenthEvent() {
-        label.setText("");
+        label.setText("Tis a good option. As you leave the darkness, you decide to explore the wilderness. " +
+                "Fighting for you life, you come across a Sanctuary");
+        actionOne.setText("Enter Sanctuary");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                sixthEvent();
+            }
+        });
     }
 
     //Stays in the darkness
