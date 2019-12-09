@@ -72,24 +72,32 @@ public class GameActivity extends AppCompatActivity {
     public void originalEvent() {
         label.setText("Welcome to the magical game of Gondordo! A game where the odds are forever in your favor. " +
                 "Have fun roaming the depths of the wilderness but beware... there are monsters everywhere");
-        actionOne.setText("Run from monster");
-        actionTwo.setText("Kill things in your");
-        view.setImageResource(R.drawable.jurassic);
-        actionOne.setOnClickListener(unused -> firstEvent());
-        actionTwo.setOnClickListener(unused -> secondEvent());
+        actionOne.setText("Begin your journey");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                midEvent();
+            }
+        });
     }
 
     //start of the story.
     public void midEvent() {
         label.setText("The story starts off with you roaming the wild and coming across a very dangerous monster. " +
-                "This monster, different from others, has fangs");
+                "This monster, different from others, it has fangs");
+        actionOne.setText("Run from monster");
+        actionTwo.setText("Try and kill monster");
+        view.setImageResource(R.drawable.jurassic);
+        actionOne.setOnClickListener(unused -> firstEvent());
+        actionTwo.setOnClickListener(unused -> secondEvent());
     }
 
     public void firstEvent() {
         // Begin another event or something like that
         // Image view of person running away.
-        label.setText("You ran like a bitch but you got a healing charm somehow. Gonna go away soon.");
-        artifacts.put(1, "Healing Charm");
+        label.setText("You ran away! Is this really how you want to start your journey.");
         actionOne.setText("Go back and kill the beast");
         actionTwo.setText("Keep running and find shelter");
         actionOne.setOnClickListener(unused -> thirdEvent());
@@ -99,8 +107,8 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        triviaQuestions("You stayed and fought the beast");
-        label.setText("You stayed and fought the beast");
+        triviaQuestions("You stayed and fought the beast and killed it!");
+        label.setText("You stayed and fought the beast and killed it!");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
         actionOne.setOnClickListener(unused -> fifthEvent());
@@ -108,7 +116,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void thirdEvent() {
-        label.setText("You went back for the beast. Kill him with either a sword or a knife");
+        label.setText("You went back for the beast. Laying on the ground you find a healing charm. " +
+                "Kill him with either a sword or a knife");
+        artifacts.put(1, "Healing Charm");
         actionOne.setText("Attack with a sword");
         actionTwo.setText("Attack with a knife");
         actionOne.setOnClickListener(unused -> seventhEvent());
@@ -126,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
     public void fifthEvent() {
         label.setText("That's disgusting, but you have gained the healing charm from his blood. " +
                 "You can now move onto the next village or continue exploring");
+        artifacts.put(1, "Healing Charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> sixthEvent());
@@ -144,7 +155,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void seventhEvent() {
-        label.setText("You have killed the beast. You can now move onto the next village or continue exploring");
+        label.setText("You have killed the beast. By killing him, you have gained the healing charm. You can now move onto the " +
+                "next village or continue exploring");
+        artifacts.put(1, "Healing Charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
         actionOne.setOnClickListener(unused -> sixthEvent());
