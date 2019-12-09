@@ -224,7 +224,7 @@ public class GameActivity extends AppCompatActivity {
 
     //When the person is in the village and doesn't want to go to the forest
     public void thirteenthEvent() {
-
+        label.setText("");
     }
 
     public void fourteenthEvent() {
