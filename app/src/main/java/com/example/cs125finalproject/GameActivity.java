@@ -370,11 +370,11 @@ public class GameActivity extends AppCompatActivity {
 
     //If the person punches there way out of the village with the coin
     public void twentyFourEvent() {
-        label.setText("You leave with the coin. Running into the forest, an angry mob is behind you.");
+        label.setText("You leave with the coin. Running towards the forest, an angry mob is behind you.");
         actionOne.setText("Go into forest");
         actionTwo.setText("Wander around hopelessly");
         actionOne.setOnClickListener(unused -> nineteenthEvent());
-        actionTwo.setOnClickListener(unused -> );
+        actionTwo.setOnClickListener(unused -> badEndGameSix());
     }
 
     //If the player decides to answer the riddle of the leprechaun
@@ -513,6 +513,15 @@ public class GameActivity extends AppCompatActivity {
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The lurkers got you. They ate your flesh and you died.");
+        artifacts.clear();
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void badEndGameSix() {
+        view.setImageResource(R.drawable.jurassic);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You wandered around and the mob caught up and killed you");
         artifacts.clear();
         builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
         builder.create().show();
