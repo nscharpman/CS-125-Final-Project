@@ -240,8 +240,8 @@ public class GameActivity extends AppCompatActivity {
     //Leave the darkness
     public void fourteenthEvent() {
         label.setText("Tis a good option. As you leave the darkness, you decide to explore the wilderness. " +
-                "Fighting for you life, you come across a Sanctuary");
-        actionOne.setText("Enter Sanctuary");
+                "Fighting for you life, you come across a small village named Lurgsberg");
+        actionOne.setText("Enter Lurgsberg");
         actionTwo.setVisibility(View.GONE);
         actionOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,21 +252,97 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    //Stays in the darkness
+    //Stays in the darkness from event 9
     public void fifteenthEvent() {
         endGame();
     }
 
     //When the player approaches the shadow lurking behind the tree
     public void sixteenthEvent() {
-
+        label.setText("As you approach the shadow, a leprechaun pops out from behind the tree. He states " +
+                "'My name is Challen. I love my name!' and proceeds to throw a magical coin at you and runs away.");
+        actionOne.setText("Pick up the coin");
+        actionTwo.setText("Follow the leprechaun before he gets away");
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                artifacts.put(2, "Magical Coin");
+                eighteenthEvent();
+            }
+        });
+        actionTwo.setOnClickListener(unused -> nineteenthEvent());
     }
 
-    //When the player gets out of the forest
+    //When the player gets out of the forest instead of investigating the shadow
     public void seventeenthEvent() {
 
     }
 
+    //After the player picks up the magical coin
+    public void eighteenthEvent() {
+        label.setText("Congrats! You have added the magical coin to your artifact pouch. You now have the option to try figuring out if you " +
+                "would like to track the leprechaun or head back to the village");
+        actionOne.setText("Track leprechaun");
+        actionTwo.setText("Head back to the village");
+        actionOne.setOnClickListener(unused -> nineteenthEvent());
+        actionTwo.setOnClickListener(unused -> twentyEvent());
+    }
+
+    //Following the leprechaun
+    public void nineteenthEvent() {
+        label.setText("Using your 'detective-like' skills, you follow the footsteps created in the mud by the leprechaun. " +
+                "Suddenly, they stop and you are completely lost. You hear giggling but you have no idea where it's coming from.");
+        actionOne.setText("Go east toward the giggling");
+        actionTwo.setText("Go west toward the giggling");
+        actionOne.setOnClickListener(unused -> twentyOneEvent());
+        actionTwo.setOnClickListener(unused -> twentyTwoEvent());
+    }
+
+    //If the person gets the coin and goes back to village
+    public void twentyEvent() {
+        label.setText("As you get back to the village, many start to ask questions. You answer with dead silence. " +
+                "They start to pressure you into giving up the coin in order to leave you alone");
+        actionOne.setText("Give up the coin");
+        actionTwo.setText("Punch a couple and run");
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                artifacts.remove(2);
+                twentyThreeEvent();
+            }
+        });
+        actionTwo.setOnClickListener(unused -> twentyFourEvent());
+    }
+
+    //If the person goes east toward the actual leprechaun
+    public void twentyOneEvent() {
+        label.setText("Sitting to the east, you find the leprechaun sitting with his pot of gold. He gives you an option, " +
+                "either answer a riddle or fight him for the gold.");
+        actionOne.setText("Answer the riddle");
+        actionTwo.setText("Fight the leprechaun");
+        actionOne.setOnClickListener(unused -> twentyFiveEvent());
+        actionTwo.setOnClickListener(unused -> twoEndGame());
+    }
+
+    //If the person goes west toward the cave of lurkers.
+    public void twentyTwoEvent() {
+
+    }
+
+    //If the person gives up the coin to the village
+    public void twentyThreeEvent() {
+        label.setText("You no longer have the coin. You flee");
+    }
+
+    //If the person punches there way out of the village with the coin
+    public void twentyFourEvent() {
+
+    }
+
+    //If the player decides to answer the riddle of the leprechaun
+    public void twentyFiveEvent() {
+
+    }
 
     // Nic:
     // - Work on Trivia API
@@ -389,6 +465,14 @@ public class GameActivity extends AppCompatActivity {
     public void endGame() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
+        artifacts.clear();
+        builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
+        builder.create().show();
+    }
+
+    public void twoEndGame() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("The leprechaun had a dragon lurking in the shadows. It killed you");
         artifacts.clear();
         builder.setPositiveButton("Try Again", (unused1, unused2) -> originalEvent());
         builder.create().show();
