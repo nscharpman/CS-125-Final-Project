@@ -354,12 +354,27 @@ public class GameActivity extends AppCompatActivity {
 
     //If the person gives up the coin to the village
     public void twentyThreeEvent() {
-        label.setText("You no longer have the coin. You flee");
+        label.setText("You no longer have the coin. You flee. This showed some character. You may answer this " +
+                "riddle to instantly make 100 times the value of the coin.");
+        actionOne.setText("Answer riddle");
+        actionTwo.setText("Don't answer");
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                triviaQuestions("You no longer have the coin");
+                twentyFiveEvent();
+            }
+        });
+        actionTwo.setOnClickListener(unused -> twentyTwoEvent());
     }
 
     //If the person punches there way out of the village with the coin
     public void twentyFourEvent() {
         label.setText("You leave with the coin. Running into the forest, an angry mob is behind you.");
+        actionOne.setText("Go into forest");
+        actionTwo.setText("Wander around hopelessly");
+        actionOne.setOnClickListener(unused -> nineteenthEvent());
+        actionTwo.setOnClickListener(unused -> );
     }
 
     //If the player decides to answer the riddle of the leprechaun
