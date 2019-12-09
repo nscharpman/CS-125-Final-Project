@@ -76,14 +76,14 @@ public class GameActivity extends AppCompatActivity {
 
         artifacts = new HashMap<>();
 
-        view.setImageResource(R.drawable.jurassic);
         originalEvent();
     }
 
     public void originalEvent() {
-        label.setText("Stuff and Things");
+        label.setText("Welcome to the magical game of ");
         actionOne.setText("Run");
         actionTwo.setText("Kill Stuff");
+        view.setImageResource(R.drawable.jurassic);
         actionOne.setOnClickListener(unused -> firstEvent());
         actionTwo.setOnClickListener(unused -> secondEvent());
     }
@@ -102,6 +102,7 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
+        triviaQuestions();
         label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
@@ -353,7 +354,8 @@ public class GameActivity extends AppCompatActivity {
         actionTwo.setOnClickListener(unused -> badEndGameThree());
         artifactButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                view.setImageResource(R.drawable.jurassic);
                 artifactButton.setVisibility(View.GONE);
                 goodEndGame();
             }
@@ -382,16 +384,16 @@ public class GameActivity extends AppCompatActivity {
     // - If person contains map variable, add third button.
 
 
-    public void triviaQuestions(String context) {
+    public void triviaQuestions() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://opentdb.com/api.php?amount=1&category=18&type=multiple&encode=base64";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
             // Have to do this individually
             //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
             //String decodedString = new String(decodedBytes);
-            insult.setText(response);
         }, error -> insult.setText("Fuck"));
         queue.add(request);
+        fightScene(object);
     }
 
     public void questions(String context) {
@@ -443,7 +445,7 @@ public class GameActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    public void fightScene(final JsonObject input, final String context) {
+    public void fightScene(final JsonObject input) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View inflater = getLayoutInflater().inflate(R.layout.chunk_triviaquestions_fight,
                 null, false);
@@ -451,7 +453,6 @@ public class GameActivity extends AppCompatActivity {
         JsonArray questions = input.get("results").getAsJsonArray();
         TextView questionBox = inflater.findViewById(R.id.question);
         TextView scenario = inflater.findViewById(R.id.scenario);
-        scenario.setText(context);
         for (JsonElement answers : questions) {
             questionBox.setText(answers.getAsJsonObject().get("question").getAsString());
             for (JsonElement answer : answers.getAsJsonObject().get("incorrect_answers").getAsJsonArray()) {
