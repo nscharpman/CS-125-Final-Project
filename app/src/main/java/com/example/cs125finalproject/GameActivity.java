@@ -474,6 +474,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameOne() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You have died. Make another pathetic attempt.");
@@ -483,6 +484,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameTwo() {
+        artifactButton.setVisibility(View.GONE);
+
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The leprechaun had a dragon lurking in the shadows. It killed you");
@@ -492,6 +495,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameThree() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You got the riddle wrong. The leprechaun dropped a tree on you for being stupid");
@@ -501,6 +505,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameFour() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You died because you were a pussy");
@@ -510,6 +515,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameFive() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("The lurkers got you. They ate your flesh and you died.");
@@ -519,6 +525,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void badEndGameSix() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You wandered around and the mob caught up and killed you");
@@ -528,6 +535,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void goodEndGame() {
+        artifactButton.setVisibility(View.GONE);
         view.setImageResource(R.drawable.jurassic);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Congratulations! You got the pot of gold and live happily ever after in a big mansion. " +
