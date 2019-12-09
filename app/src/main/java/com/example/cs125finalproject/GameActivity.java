@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
     public void originalEvent() {
         label.setText("Welcome to the magical game of Gondordo! A game where the odds are forever in your favor. " +
                 "Have fun roaming the depths of the wilderness but beware... there are monsters everywhere");
-        actionOne.setText("Begin your journey");
+        actionOne.setText("Begin your journey.");
         actionTwo.setVisibility(View.GONE);
         actionOne.setOnClickListener(new View.OnClickListener() {
             @Override
