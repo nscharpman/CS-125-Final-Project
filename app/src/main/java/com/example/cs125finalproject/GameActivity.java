@@ -102,7 +102,6 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        triviaQuestions("context");
         label.setText("You stayed and fought the beast");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
@@ -149,7 +148,7 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have killed the beast. You can now move onto the next village or continue exploring");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
-        actionOne.setOnClickListener(unused -> fourteenthEvent());
+        actionOne.setOnClickListener(unused -> sixthEvent());
         actionTwo.setOnClickListener(unused -> eleventhEvent());
     }
 
@@ -185,8 +184,8 @@ public class GameActivity extends AppCompatActivity {
         label.setText("You have walked into darkness. Do you want to leave?");
         actionOne.setText("Leave");
         actionTwo.setText("Stay");
-        actionOne.setOnClickListener(unused -> fifteenthEvent());
-        actionTwo.setOnClickListener(unused -> sixteenthEvent());
+        actionOne.setOnClickListener(unused -> fourteenthEvent());
+        actionTwo.setOnClickListener(unused -> fifteenthEvent());
     }
 
     public void tenthEvent() {
@@ -219,26 +218,41 @@ public class GameActivity extends AppCompatActivity {
                 "You hear noises all around you not knowing what is what. You see a shadow lurking behind a tree");
         actionOne.setText("Investigate shadow");
         actionTwo.setText("Get out of forest");
-        actionOne.setOnClickListener(unused -> seventeenthEvent());
+        actionOne.setOnClickListener(unused -> sixteenthEvent());
+        actionTwo.setOnClickListener(unused -> seventeenthEvent());
     }
 
     //When the person is in the village and doesn't want to go to the forest
     public void thirteenthEvent() {
+        label.setText("The girls in the village call you a pussy. Holding back tears to not embarrass yourself, " +
+                "you reluctantly enter the forest.");
+        actionOne.setText("Enter the forest");
+        actionTwo.setVisibility(View.GONE);
+        actionOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionTwo.setVisibility(View.VISIBLE);
+                twelfthEvent();
+            }
+        });
+    }
+
+    //Leave the darkness
+    public void fourteenthEvent() {
         label.setText("");
     }
 
-    public void fourteenthEvent() {
-
-    }
-
+    //Stays in the darkness
     public void fifteenthEvent() {
-
+        endGame();
     }
 
+    //When the player approaches the shadow lurking behind the tree
     public void sixteenthEvent() {
 
     }
 
+    //When the player gets out of the forest
     public void seventeenthEvent() {
 
     }
@@ -273,9 +287,6 @@ public class GameActivity extends AppCompatActivity {
             //byte[] decodedBytes = Base64.getDecoder().decode(stuff);
             //String decodedString = new String(decodedBytes);
             insult.setText(response);
-            JsonParser jsonParser = new JsonParser();
-            JsonElement element = jsonParser.parse(response);
-            fightScene(element.getAsJsonObject(), context);
         }, error -> insult.setText("Fuck"));
         queue.add(request);
     }
