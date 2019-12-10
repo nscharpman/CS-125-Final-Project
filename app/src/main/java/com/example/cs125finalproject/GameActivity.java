@@ -107,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
     public void secondEvent() {
         // Begin an action event or fight or something like that
         // Image of person standing with a sword.
-        triviaQuestions("You stayed and fought the beast and killed it!");
+        triviaQuestions("You stayed and attempted to fight the beast. Answer this question to kill it");
         label.setText("You stayed and fought the beast and killed it!");
         actionOne.setText("Eat the guts of the beast");
         actionTwo.setText("Move on to the next village");
