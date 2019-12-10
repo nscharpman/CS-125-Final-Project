@@ -157,6 +157,7 @@ public class GameActivity extends AppCompatActivity {
     public void seventhEvent() {
         label.setText("You have killed the beast. By killing him, you have gained the healing charm. You can now move onto the " +
                 "next village or continue exploring");
+        triviaQuestions("You attempted to kill the beast with your sword");
         artifacts.put(1, "Healing Charm");
         actionOne.setText("Move onto next village");
         actionTwo.setText("Continue exploring");
@@ -211,14 +212,17 @@ public class GameActivity extends AppCompatActivity {
 
     //When the player wants to keep exploring
     public void eleventhEvent() {
+        triviaQuestions("Constant monsters are always attacking. Answer this question to survive.");
         label.setText("As you explore the dark depths of the wilderness, " +
-                "fighting for your life in every corner of the world, you come across a tiny village named Lurgsberg");
+                "fighting for your life in every corner of the world, you come across a tiny village named Lurgsberg. You must " +
+                "answer a question to enter");
         actionOne.setText("Enter Lurgsberg");
         actionTwo.setVisibility(View.GONE);
         actionOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 actionTwo.setVisibility(View.VISIBLE);
+                triviaQuestions("Answer this riddle");
                 sixthEvent();
             }
         });
@@ -252,6 +256,7 @@ public class GameActivity extends AppCompatActivity {
 
     //Leave the darkness
     public void fourteenthEvent() {
+        triviaQuestions("Constant monsters are always attacking. Answer this question to survive.");
         label.setText("Tis a good option. As you leave the darkness, you decide to explore the wilderness. " +
                 "Fighting for you life, you come across a small village named Lurgsberg");
         actionOne.setText("Enter Lurgsberg");
@@ -260,6 +265,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 actionTwo.setVisibility(View.VISIBLE);
+                triviaQuestions("Answer this riddle");
                 sixthEvent();
             }
         });
@@ -462,7 +468,7 @@ public class GameActivity extends AppCompatActivity {
                 int index = question.getCheckedRadioButtonId();
                 RadioButton button = question.findViewById(index);
                 if (button.getText().toString().equals(decodedString3)) {
-                    insult.setText("You have survived this fight");
+                    return;
                 } else {
                     badEndGameOne();
                 }
